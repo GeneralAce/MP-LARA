@@ -1,10 +1,12 @@
 # Imports
 import time
 import sys
+import random
+import string
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.0.0"
+version = "Beta 1.1.2"
 
 # Variables
 boot_type = 3
@@ -16,6 +18,8 @@ l_username = None
 l_password = None
 
 logged_in = False
+
+PG_chosen = False
 
 
 # Clear screen code
@@ -198,3 +202,31 @@ def startup():
     boot_loader()
 
 startup()
+
+# Makes the user choose to open an application
+def choose_app():
+
+    global PG_chosen
+
+    ca = input("Choose an application: Password generator(write: \"PG\")")
+    if ca == "PG":
+        cs()
+        print("Loading password generator.")
+        time.sleep(1)
+        print("Loading password generator..")
+        time.sleep(1)
+        print("Loading password generator...")
+        PG_chosen = True
+        cs()
+
+def password_generator():
+    pass
+
+def app_loader():
+
+    global PG_chosen
+
+    if PG_chosen == True:
+        password_generator()
+    else:
+        pass
