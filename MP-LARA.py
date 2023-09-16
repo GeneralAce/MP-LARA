@@ -3,14 +3,13 @@ import time
 import sys
 import random
 import string
-import math
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.5.6"
+version = "Beta 1.5.7"
 
 # Variables
-boot_type = 3
+boot_type = 2
 
 s_username = None
 s_password = None
@@ -34,8 +33,6 @@ def cs():
         clear_screen_var += 1
     if clear_screen_var >= 100:
         clear_screen_var = 0
-
-
 
 # Bootloader
 def boot_loader():
@@ -87,10 +84,6 @@ def boot_loader():
                     time.sleep(1)
                     cs()
                 
-
-
-
-
     # Signup function
     def signup_boot():
         
@@ -113,6 +106,7 @@ def boot_loader():
             else:
                 cs()
                 while True:
+                    # Makes the user set a password and verifier it meets the character criteria
                     s_password = input("Enter your desired password >> ")
                     s_password_req = len(s_password)
                     if s_password_req < 8:
@@ -140,8 +134,6 @@ def boot_loader():
                     break
                 break
 
-
-
     if boot_type == 0:
         login_boot()
     elif boot_type == 1:
@@ -160,27 +152,8 @@ def boot_loader():
         time.sleep(1)
         sys.exit(1)
 
-
-
-
 # Startup code
 def startup():
-    
-    def starting_up_loader():
-        print("Starting up.")
-        time.sleep(1)
-        print("Starting up..")
-        time.sleep(1)
-        print("Starting up...")
-        time.sleep(1)
-        print("Starting up.")
-        time.sleep(1)
-        print("Starting up..")
-        time.sleep(1)
-        print("Starting up...")
-        time.sleep(1)
-        cs()
-    starting_up_loader()
 
     # Boots into the right mode(login/signup)
     def startup_type():
@@ -229,7 +202,6 @@ def choose_app():
         time.sleep(1)
         print("Loading password generator..")
         time.sleep(1)
-        print("Loading password generator...")
         PG_chosen = True
         cs()
 
@@ -240,12 +212,10 @@ def choose_app():
         time.sleep(1)
         print("Loading calculator..")
         time.sleep(1)
-        print("Loading calculator...")
         C_chosen = True
         cs()
 
         app_loader()
-
 
 # Password generator system
 def password_generator(password_length):
@@ -269,7 +239,7 @@ def calculator():
 
     def divide(x, y):
         if y == 0:
-            return "ERROR! Division by zero"
+            return "ERROR! Cannot divide by zero."
         return x / y
 
     def exponentiate(x, y):
@@ -277,14 +247,14 @@ def calculator():
 
     def take_root(x, y):
         if x < 0 and y % 2 == 0:
-            return "ERROR! Cannot take even root of a negative number"
+            return "ERROR! Cannot take even root of a negative number."
         return x ** (1 / y)
 
     def calculator_ui():
 
         while True:
             
-            print("Simple Calculator")
+            print("Calculator")
             print("Available operations:")
             print("1. Addition (+)")
             print("2. Subtraction (-)")
@@ -363,8 +333,6 @@ def pg_i_and_o_s():
                 sys.exit()
             else:
                 print("ERROR! Please type \"y\" or \"n\".")
-
-
 
 # App loader system
 def app_loader():
