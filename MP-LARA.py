@@ -7,7 +7,7 @@ import math
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.5.5"
+version = "Beta 1.5.6"
 
 # Variables
 boot_type = 3
@@ -22,6 +22,9 @@ logged_in = False
 
 PG_chosen = False
 password_length = 12
+
+C_chosen = False
+
 
 # Clear screen code
 def cs():
@@ -216,9 +219,10 @@ startup()
 # Makes the user choose to open an application
 def choose_app():
 
+    global C_chosen
     global PG_chosen
 
-    ca = input("Choose an application: Password generator(write: \"PG\") >> ")
+    ca = input("Choose an application: Password generator(write: \"PG\", Calculator(write: \"C\")) >> ")
     if ca == "PG":
         cs()
         print("Loading password generator.")
@@ -227,6 +231,17 @@ def choose_app():
         time.sleep(1)
         print("Loading password generator...")
         PG_chosen = True
+        cs()
+
+        app_loader()
+    elif ca == "C":
+        cs()
+        print("Loading calculator.")
+        time.sleep(1)
+        print("Loading calculator..")
+        time.sleep(1)
+        print("Loading calculator...")
+        C_chosen = True
         cs()
 
         app_loader()
@@ -313,6 +328,7 @@ def calculator():
                     sys.exit()
                 else:
                     print("ERROR! Please type \"y\" or \"n\".")
+    calculator_ui()
 
 # Password generator input & output system
 def pg_i_and_o_s():
@@ -358,6 +374,9 @@ def app_loader():
     if PG_chosen == True:
         cs()
         pg_i_and_o_s()
+    elif C_chosen == True:
+        cs()
+        calculator()
     else:
         pass
 
