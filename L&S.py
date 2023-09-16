@@ -3,10 +3,11 @@ import time
 import sys
 import random
 import string
+import math
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.4.0"
+version = "Beta 1.5.4"
 
 # Variables
 boot_type = 3
@@ -21,8 +22,6 @@ logged_in = False
 
 PG_chosen = False
 password_length = 12
-
-again_PG_var = 0
 
 # Clear screen code
 def cs():
@@ -233,7 +232,78 @@ def password_generator(password_length):
 
     return password
 
+def calculator():
+    
+    def add(x, y):
+        return x + y
 
+    def subtract(x, y):
+        return x - y
+
+    def multiply(x, y):
+        return x * y
+
+    def divide(x, y):
+        if y == 0:
+            return "ERROR! Division by zero"
+        return x / y
+
+    def exponentiate(x, y):
+        return x ** y
+
+    def take_root(x, y):
+        if x < 0 and y % 2 == 0:
+            return "ERROR! Cannot take even root of a negative number"
+        return x ** (1 / y)
+
+    def calculator_ui():
+
+        while True:
+            
+            print("Simple Calculator")
+            print("Available operations:")
+            print("1. Addition (+)")
+            print("2. Subtraction (-)")
+            print("3. Multiplication (*)")
+            print("4. Division (/)")
+            print("5. Exponentiation (^)")
+            print("6. Root (√)")
+            print("Enter 'q' to quit")
+            print("")
+            
+            choice = input("Select operation (1/2/3/4/5/6/q): ")
+
+            if choice == 'q':
+                print("Closing calculator.")
+                time.sleep(1)
+                sys.exit()
+            elif choice in ('1', '2', '3', '4', '5', '6'):
+                num1 = float(input("Enter first number: "))
+                num2 = float(input("Enter second number: "))
+
+                if choice == '1':
+                    print("Result: ", add(num1, num2))
+                elif choice == '2':
+                    print("Result: ", subtract(num1, num2))
+                elif choice == '3':
+                    print("Result: ", multiply(num1, num2))
+                elif choice == '4':
+                    print("Result: ", divide(num1, num2))
+                elif choice == '5':
+                    print("Result: ", exponentiate(num1, num2))
+                elif choice == '6':
+                    print("Result: ", take_root(num1, num2))
+            else:
+                print("Invalid input. Please try again.")
+            
+            while True:
+                again_C = input("Do you want to make a new calculation?(y/n) >> ")    
+                if again_C == "y":
+                    break
+                elif again_C == "n":
+                    sys.exit()
+                else:
+                    print("ERROR! Please type \"y\" or \"n\".")
 
 # Password generator input & output system
 def pg_i_and_o_s():
@@ -259,19 +329,15 @@ def pg_i_and_o_s():
 
         print("Your generated password is:", generated_password)
         time.sleep(1)
-        again_PG = input("Do you want to create a new password?(y/n) >> ")
-        while True:    
+
+        while True:
+            again_PG = input("Do you want to create a new password?(y/n) >> ")    
             if again_PG == "y":
-                again_PG_var = 1
                 break
             elif again_PG == "n":
-                break
+                sys.exit()
             else:
                 print("ERROR! Please type \"y\" or \"n\".")
-        if again_PG_var == 1:
-            break
-        else:
-            pass
 
 
 
