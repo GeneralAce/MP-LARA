@@ -4,12 +4,19 @@ import sys
 
 # Information
 developer = "GeneralAce"
-version = "Alpha 1.1.0"
+version = "Alpha 1.2.0"
 
 # Variables
 boot_type = 3
+
 s_username = None
 s_password = None
+
+l_username = None
+l_password = None
+
+logged_in = False
+
 
 # Clear screen code
 def cs():
@@ -20,19 +27,57 @@ def cs():
     if clear_screen_var >= 100:
         clear_screen_var = 0
 
+
+
 # Bootloader
 def boot_loader():
     
+    # Login function
     def login_boot():
+        
+        global logged_in
+        global l_username
+        global l_password
         
         print("Booted into login mode.")
         time.sleep(1)
         cs()
 
+        # Login system
+        while True:
+            l_username = input("Enter your username >> ")
+            
+            # Opens the username file
+            with open(l_username + ".txt", "r") as username_login_verifier:
+                verify_user = username_login_verifier.read()
+
+            # Verifies the username
+            if verify_user == l_username:
+                print("Verified username.")
+                time.sleep(1)
+                cs()
+
+                l_password = input("Enter your password >> ")
+
+                # Opens the password file
+                with open(l_username + "_password.txt", "r") as password_login_verifier:
+                    verify_password = password_login_verifier.read()
+
+                # Verifies the password
+                if verify_password == l_password:
+                    print("Verified password.")
+                    time.sleep(1)
+                    cs()
+                logged_in = True
+            break
 
 
+
+
+    # Signup function
     def signup_boot():
         
+        global logged_in
         global s_username
         global s_password
 
@@ -40,6 +85,7 @@ def boot_loader():
         time.sleep(1)
         cs()
 
+        # Signup system
         while True:
             s_username = input("Enter your desired username >> ")
             s_username_req = len(s_username)
@@ -63,6 +109,7 @@ def boot_loader():
                         time.sleep(1)
                         print("Creating account...")
 
+                        # Account information saver
                         with open(s_username + ".txt", "w") as user_writer:
                             user_writer.write(s_username)
                         with open(s_username + "_password.txt", "w") as password_writer:
@@ -71,9 +118,12 @@ def boot_loader():
                         print("Successfully signed up!")
                         time.sleep(1)
                         cs()
+                        logged_in = True
                         break
                     break
                 break
+
+
 
     if boot_type == 0:
         login_boot()
@@ -92,6 +142,8 @@ def boot_loader():
         print("Automatically closing the app in 1s...")
         time.sleep(1)
         sys.exit(1)
+
+
 
 
 # Startup code
@@ -113,6 +165,7 @@ def startup():
         cs()
     starting_up_loader()
 
+    # Boots into the right mode(login/signup)
     def startup_type():
         
         global boot_type
