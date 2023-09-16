@@ -7,7 +7,7 @@ import math
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.5.4"
+version = "Beta 1.5.5"
 
 # Variables
 boot_type = 3
@@ -49,32 +49,41 @@ def boot_loader():
         cs()
 
         # Login system
-        while True:
+        while logged_in == False:
             l_username = input("Enter your username >> ")
             
             # Opens the username file
             with open(l_username + ".txt", "r") as username_login_verifier:
                 verify_user = username_login_verifier.read()
 
-            # Verifies the username
-            if verify_user == l_username:
-                print("Verified username.")
-                time.sleep(1)
-                cs()
-
-                l_password = input("Enter your password >> ")
-
-                # Opens the password file
-                with open(l_username + "_password.txt", "r") as password_login_verifier:
-                    verify_password = password_login_verifier.read()
-
-                # Verifies the password
-                if verify_password == l_password:
-                    print("Verified password.")
+                # Verifies the username
+            while logged_in == False:    
+                if verify_user == l_username:
+                    print("Verified username.")
                     time.sleep(1)
                     cs()
-                logged_in = True
-            break
+
+                    l_password = input("Enter your password >> ")
+
+                    # Opens the password file
+                    with open(l_username + "_password.txt", "r") as password_login_verifier:
+                        verify_password = password_login_verifier.read()
+
+                    # Verifies the password
+                    if verify_password == l_password:
+                        print("Verified password.")
+                        time.sleep(1)
+                        cs()
+                        logged_in = True
+                    else:
+                        print("ERROR! Enter a valid password.")
+                        time.sleep(1)
+                        cs()
+                else:
+                    print("ERROR! Enter a valid username.")
+                    time.sleep(1)
+                    cs()
+                
 
 
 
