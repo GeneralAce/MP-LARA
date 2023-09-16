@@ -4,7 +4,7 @@ import sys
 
 # Information
 developer = "GeneralAce"
-version = "Alpha 1.2.0"
+version = "Beta 1.0.0"
 
 # Variables
 boot_type = 3
