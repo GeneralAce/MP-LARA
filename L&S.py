@@ -6,7 +6,7 @@ import string
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.3.8"
+version = "Beta 1.4.0"
 
 # Variables
 boot_type = 3
@@ -21,6 +21,8 @@ logged_in = False
 
 PG_chosen = False
 password_length = 12
+
+again_PG_var = 0
 
 # Clear screen code
 def cs():
@@ -231,27 +233,45 @@ def password_generator(password_length):
 
     return password
 
+
+
 # Password generator input & output system
 def pg_i_and_o_s():
     
+    global again_PG_var
     global password_length
 
     while True:
-        try:
-            password_length = int(input("How long do you want your password to be? (8-128 characters) >> "))
-            
-            # Makes sure that the input is an integer between 8 and 128
-            if 8 <= password_length <= 128:
+        while True:
+            try:
+                password_length = int(input("How long do you want your password to be? (8-128 characters) >> "))
+                
+                # Makes sure that the input is an integer between 8 and 128
+                if 8 <= password_length <= 128:
+                    break
+                else:
+                    print("Please enter a valid number between 8 and 128.")
+            except ValueError:
+                print("Please enter a valid integer.")
+
+        cs()
+        generated_password = password_generator(password_length)
+
+        print("Your generated password is:", generated_password)
+        time.sleep(1)
+        again_PG = input("Do you want to create a new password?(y/n) >> ")
+        while True:    
+            if again_PG == "y":
+                again_PG_var = 1
+                break
+            elif again_PG == "n":
                 break
             else:
-                print("Please enter a valid number between 8 and 128.")
-        except ValueError:
-            print("Please enter a valid integer.")
-
-    cs()
-    generated_password = password_generator(password_length)
-
-    print("Your generated password is:", generated_password)
+                print("ERROR! Please type \"y\" or \"n\".")
+        if again_PG_var == 1:
+            break
+        else:
+            pass
 
 
 
