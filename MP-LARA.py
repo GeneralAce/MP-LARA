@@ -6,7 +6,7 @@ import string
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.5.8"
+version = "Release 1.0.0"
 
 # Variables
 boot_type = 2
@@ -24,15 +24,9 @@ password_length = 12
 
 C_chosen = False
 
-
 # Clear screen code
 def cs():
-    clear_screen_var = 0
-    while clear_screen_var < 100:
-        print("")
-        clear_screen_var += 1
-    if clear_screen_var >= 100:
-        clear_screen_var = 0
+    print("\n" * 100)
 
 # Bootloader
 def boot_loader():
@@ -40,75 +34,75 @@ def boot_loader():
     # Login function
     def login_boot():
         
-        global logged_in
-        global l_username
-        global l_password
+        global logged_in, l_username, l_password
         
         print("Booted into login mode.")
         time.sleep(1)
         cs()
 
         # Login system
-        while logged_in == False:
+        while not logged_in:
+            
             l_username = input("Enter your username >> ")
             
-            # Opens the username file
-            with open(l_username + ".txt", "r") as username_login_verifier:
-                verify_user = username_login_verifier.read()
+            try:
+                with open(l_username + ".txt", "r") as username_login_verifier:
+                    verify_user = username_login_verifier.read()
+                    if verify_user == l_username:
 
-                # Verifies the username
-            while logged_in == False:    
-                if verify_user == l_username:
-                    print("Verified username.")
-                    time.sleep(1)
-                    cs()
-
-                    l_password = input("Enter your password >> ")
-
-                    # Opens the password file
-                    with open(l_username + "_password.txt", "r") as password_login_verifier:
-                        verify_password = password_login_verifier.read()
-
-                    # Verifies the password
-                    if verify_password == l_password:
-                        print("Verified password.")
+                        print("Verified username.")
                         time.sleep(1)
                         cs()
-                        logged_in = True
+                        
+                        l_password = input("Enter your password >> ")
+                        
+                        with open(l_username + "_password.txt", "r") as password_login_verifier:
+                            verify_password = password_login_verifier.read()
+
+                        if verify_password == l_password:
+                            print("Verified password.")
+                            time.sleep(1)
+                            cs()
+                            logged_in = True
+                        else:
+                            print("ERROR! Enter a valid password.")
+                            time.sleep(1)
+                            cs()
                     else:
-                        print("ERROR! Enter a valid password.")
+                        print("ERROR! Enter a valid username.")
                         time.sleep(1)
                         cs()
-                else:
-                    print("ERROR! Enter a valid username.")
-                    time.sleep(1)
-                    cs()
+
+            except FileNotFoundError:
+                print("ERROR! Username not found.")
+                time.sleep(1)
+                cs()
                 
     # Signup function
     def signup_boot():
         
-        global logged_in
-        global s_username
-        global s_password
-
+        global logged_in, s_username, s_password
+        
         print("Booted into signup mode.")
         time.sleep(1)
         cs()
-
-        # Signup system
+        
         while True:
+            
             s_username = input("Enter your desired username >> ")
             s_username_req = len(s_username)
+            
             if s_username_req < 2:
                 print("ERROR! Your username must be at least 2 characters long.")
                 time.sleep(1)
                 cs()
             else:
                 cs()
+                
                 while True:
-                    # Makes the user set a password and verifier it meets the character criteria
                     s_password = input("Enter your desired password >> ")
                     s_password_req = len(s_password)
+                    
                     if s_password_req < 8:
                         print("ERROR! Your password must be at least 8 characters long.")
                         time.sleep(1)
@@ -119,17 +113,17 @@ def boot_loader():
                         print("Creating account..")
                         time.sleep(1)
                         print("Creating account...")
-
-                        # Account information saver
                         with open(s_username + ".txt", "w") as user_writer:
                             user_writer.write(s_username)
                         with open(s_username + "_password.txt", "w") as password_writer:
                             password_writer.write(s_password)
                         cs()
+                        
                         print("Successfully signed up!")
                         time.sleep(1)
                         cs()
                         logged_in = True
+                        
                         break
                     break
                 break
