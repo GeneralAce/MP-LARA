@@ -6,7 +6,7 @@ import string
 
 # Information
 developer = "GeneralAce"
-version = "Beta 1.5.7"
+version = "Beta 1.5.8"
 
 # Variables
 boot_type = 2
@@ -195,7 +195,7 @@ def choose_app():
     global C_chosen
     global PG_chosen
 
-    ca = input("Choose an application: Password generator(write: \"PG\", Calculator(write: \"C\")) >> ")
+    ca = input("Choose an application: Password generator(write: \"PG\", Calculator(write: \"C\") >> ")
     if ca == "PG":
         cs()
         print("Loading password generator.")
